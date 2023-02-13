@@ -9,7 +9,7 @@ service / on new http:Listener(8090) {
 
     resource function get alive(http:Caller caller) {
         string testValue = os:getEnv("TEST_KEY");
-        log:printInfo(testValue);
+        log:printInfo("ENVIRONMENT: " + testValue);
         log:printInfo(caller.remoteAddress.toBalString());
         log:printInfo(caller.getRemoteHostName().toString());
     }
