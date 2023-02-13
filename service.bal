@@ -12,5 +12,7 @@ service / on new http:Listener(8090) {
         log:printInfo("ENVIRONMENT: " + testValue);
         log:printInfo(caller.remoteAddress.toBalString());
         log:printInfo(caller.getRemoteHostName().toString());
+
+        checkpanic caller->respond(testValue.toJson());
     }
 }
