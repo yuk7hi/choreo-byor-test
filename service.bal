@@ -1,6 +1,30 @@
 import ballerina/http;
 import ballerina/log;
 import ballerina/os;
+import ballerina/sql;
+import ballerinax/mysql;
+import ballerinax/mysql.driver as _;
+
+type MysqlConfig record {|
+    string host;
+    string user;
+    string password;
+    string database;
+    int port;
+    mysql:Options options;
+    sql:ConnectionPool connectionPool;
+|};
+
+configurable MysqlConfig testDbConfig = ?;
+final mysql:Client testDbClient = check new (
+    testDbConfig.host,
+    testDbConfig.user,
+    testDbConfig.password,
+    testDbConfig.database,
+    testDbConfig.port,
+    testDbConfig.options,
+    testDbConfig.connectionPool
+);
 
 service / on new http:Listener(8090) {
     function init() {
