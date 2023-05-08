@@ -26,7 +26,7 @@ final mysql:Client testDbClient = check new (
     testDbConfig.connectionPool
 );
 
-configurable map<string[]> testStringArrayMap = ?;
+configurable map<string> testStringArrayMap = ?;
 
 service / on new http:Listener(8090) {
     function init() {
