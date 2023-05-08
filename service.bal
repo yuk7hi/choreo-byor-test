@@ -26,6 +26,8 @@ final mysql:Client testDbClient = check new (
     testDbConfig.connectionPool
 );
 
+configurable map<string[]> testStringArrayMap = ?;
+
 service / on new http:Listener(8090) {
     function init() {
         log:printInfo("Service started successfully...");
@@ -36,6 +38,8 @@ service / on new http:Listener(8090) {
         log:printInfo("ENVIRONMENT: " + testValue);
         log:printInfo(caller.remoteAddress.toBalString());
         log:printInfo(caller.getRemoteHostName().toString());
+
+        log:printInfo(testStringArrayMap.toString());
 
         checkpanic caller->respond(testValue.toJson());
     }
