@@ -10,5 +10,5 @@ FROM jenkins/jenkins:2.176.4-alpine
 # RUN apt-get update && apt-get install -y docker-ce-cli
 RUN addgroup --gid 10010 jenkinsgroup && \
     adduser  --disabled-password  --no-create-home --uid 10010 --ingroup jenkinsgroup jenkinsuser
-USER jenkinsuser
+USER 10010
 # RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
