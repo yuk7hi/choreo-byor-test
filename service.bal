@@ -88,6 +88,11 @@ service / on new http:Listener(8090) {
         checkpanic caller->respond(testValue.toJson());
     }
 
+    resource function get listEnv() returns json|error {
+        map<string> envList = os:listEnv();
+        return envList;
+    }
+
     resource function get indexOfvsSome() returns json|error {
         string[] testArray = [];
         testArray.setLength(1000 * 1000);
