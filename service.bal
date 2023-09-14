@@ -6,7 +6,6 @@ import ballerinax/mysql;
 import ballerina/random;
 import ballerina/time;
 import ballerinax/mysql.driver as _;
-import ballerina/constraint;
 
 type MysqlConfig record {|
     string host;
@@ -24,40 +23,6 @@ type IndexOfvsSomeResult record {|
     time:Seconds someTime;
     decimal speedFactor;
 |};
-
-# Exact time and day of a week upto minute precision.
-type TimeAndDayOfWeek record {
-    # Hour as an integer
-    @constraint:Int {
-        minValue: 0,
-        maxValue: 23
-    }
-    int hour;
-    # Minute as an integer
-    @constraint:Int {
-        minValue: 0,
-        maxValue: 59
-    }
-    int minute;
-};
-
-# Configuration for a scheduled task triggered via an HTTP endpoint.
-type ScheduledTask record {
-    # Task name
-    string name;
-    # Task trigger endpoint
-    @constraint:String {
-        pattern: {
-            value: re `^http[s]?://.*`,
-            message: "Endpoint should be a valid HTTP URL"
-        }
-    }
-    string endpoint;
-    # Scheduled period (in seconds)
-    decimal|TimeAndDayOfWeek period;
-};
-
-configurable ScheduledTask[] scheduledTasks = ?;
 
 // configurable MysqlConfig testDbConfig = ?;
 // final mysql:Client testDbClient = check new (
